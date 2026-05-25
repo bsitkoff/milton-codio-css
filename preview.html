@@ -533,6 +533,36 @@ alien_speed = <span class="hljs-number">2</span>
           </p>
 
         </div>
+
+        <!-- ============================================================
+             Assessment widgets — Codio injects these into the guide pane
+             (often as siblings of .rendered-markdown). Plain element markup
+             here so the preview mirrors how the override CSS targets the
+             real, class-name-agnostic Codio assessment DOM.
+             ============================================================ -->
+        <div class="codio-assessment" style="max-width:760px;margin:0 auto;padding:0 40px 80px;box-sizing:border-box">
+          <p style="font-size:18px;color:#17191e;margin:0 0 14px">
+            How does the <code>state</code> variable control what happens in
+            this game? Describe all three states.
+          </p>
+          <textarea rows="3" placeholder="Type your answer…"></textarea>
+          <div style="margin-top:12px">
+            <button type="submit" class="check-it">Check It!</button>
+            <button>Previous</button>
+            <button>Next</button>
+          </div>
+
+          <p style="font-size:18px;color:#17191e;margin:28px 0 12px">
+            Which keyword lets a function change a variable defined outside it?
+          </p>
+          <ul style="margin:0">
+            <li><label><input type="radio" name="q2">A local variable</label></li>
+            <li><label><input type="radio" name="q2">The <code>global</code> keyword</label></li>
+            <li><label><input type="radio" name="q2">A <code>return</code> statement</label></li>
+          </ul>
+          <div style="margin-top:8px"><button type="submit" class="check-it">Check It!</button></div>
+        </div>
+
       </div>
     </div>
 

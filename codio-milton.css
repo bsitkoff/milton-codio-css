@@ -913,6 +913,171 @@ figcaption {
 ::-webkit-scrollbar-thumb:hover { background: var(--ink-300); }
 
 /* -------------------------------------------------------------------------- */
+/*  Assessments — Codio's interactive widgets                                 */
+/*  Override mode replaces Codio's defaults entirely, so the free-text answer  */
+/*  boxes, the Submit ("Check It!") button, the Previous/Next navigation, the  */
+/*  multiple-choice inputs, and result feedback all lose their styling and     */
+/*  must be restyled here. Targeted by ELEMENT (robust against whatever class  */
+/*  names Codio emits) plus common class patterns for the primary button.     */
+/* -------------------------------------------------------------------------- */
+
+/* --- Text answer fields (free text, fill-in-the-blank, number) ----------- */
+textarea,
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="url"],
+input[type="password"],
+select {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-900);
+  background: #fff;
+  border: 1px solid var(--ink-200);
+  border-radius: 6px;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  transition: border-color var(--dur-fast) var(--ease-standard),
+              box-shadow var(--dur-fast) var(--ease-standard);
+}
+textarea {
+  width: 100%;
+  min-height: 96px;
+  resize: vertical;
+  display: block;
+}
+textarea:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--blue-600);
+  box-shadow: 0 0 0 3px rgba(0, 62, 126, 0.12);
+}
+textarea::placeholder,
+input::placeholder { color: var(--ink-400); }
+
+/* --- Buttons: default treatment (Previous / Next and any guide button) ---- */
+button,
+.btn,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--blue-800);
+  background: #fff;
+  border: 1px solid var(--blue-200);
+  border-radius: 6px;
+  padding: 8px 16px;
+  margin: 6px 8px 6px 0;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-standard),
+              border-color var(--dur-fast) var(--ease-standard),
+              color var(--dur-fast) var(--ease-standard);
+}
+button:hover,
+.btn:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+  background: var(--blue-50);
+  border-color: var(--blue-400);
+  color: var(--blue-900);
+}
+button:focus-visible,
+.btn:focus-visible,
+input[type="submit"]:focus-visible {
+  outline: 2px solid var(--orange-400);
+  outline-offset: 2px;
+}
+
+/* --- Primary / submit ("Check It!") — filled Milton blue ----------------- */
+button[type="submit"],
+input[type="submit"],
+button[class*="submit"],
+button[class*="check"],
+button[class*="primary"],
+button[class*="action"],
+.btn-primary {
+  color: #fff;
+  background: var(--blue-800);
+  border-color: var(--blue-800);
+}
+button[type="submit"]:hover,
+input[type="submit"]:hover,
+button[class*="submit"]:hover,
+button[class*="check"]:hover,
+button[class*="primary"]:hover,
+button[class*="action"]:hover,
+.btn-primary:hover {
+  background: var(--blue-900);
+  border-color: var(--blue-900);
+  color: #fff;
+}
+
+/* --- Disabled (e.g. "Check It!" before an answer is typed) ---------------- */
+button:disabled,
+button[disabled],
+.btn:disabled,
+.btn.disabled,
+input[type="submit"]:disabled,
+input[type="button"]:disabled {
+  background: var(--ink-50) !important;
+  border-color: var(--ink-150) !important;
+  color: var(--ink-400) !important;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* --- Multiple-choice / checkbox options ---------------------------------- */
+input[type="radio"],
+input[type="checkbox"] {
+  accent-color: var(--blue-700);
+  width: 16px;
+  height: 16px;
+  margin: 0 8px 0 0;
+  vertical-align: -2px;
+  cursor: pointer;
+}
+/* Choice rows rendered as a list get a little more breathing room */
+li:has(> input[type="radio"]),
+li:has(> input[type="checkbox"]),
+li:has(> label > input[type="radio"]),
+li:has(> label > input[type="checkbox"]) {
+  list-style: none;
+  padding-left: 4px;
+}
+li:has(> input[type="radio"])::before,
+li:has(> input[type="checkbox"])::before { display: none; }
+
+/* --- Result feedback after submit (pass / fail messaging) ----------------
+   Codio's exact feedback class names vary; these light-touch rules color the
+   common cases without assuming layout. Refine once the real DOM is known. */
+[class*="-correct"], [class*="_correct"], [class*="answer-right"],
+[class*="success"]:not(button) {
+  color: var(--success);
+}
+[class*="-incorrect"], [class*="_incorrect"], [class*="answer-wrong"],
+[class*="error"]:not(button), [class*="danger"]:not(button) {
+  color: var(--danger);
+}
+
+/* Assessments: hide interactive controls in print handouts */
+@media print {
+  button, .btn, input[type="submit"], input[type="button"] { display: none; }
+  textarea, input[type="text"] { border: 1px solid #999; min-height: 60px; }
+}
+
+/* -------------------------------------------------------------------------- */
 /*  Print                                                                     */
 /* -------------------------------------------------------------------------- */
 @media print {
