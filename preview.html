@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Codio Guide — Milton MS CS theme preview</title>
+<link rel="stylesheet" href="codio-milton.css" />
+<style>
+  /* ============================================================
+     Codio chrome — NOT part of the theme. Just a wrapper that
+     makes the preview feel like Codio so you can compare it to
+     the real thing. Everything inside .rendered-markdown is what
+     the override CSS actually controls.
+     ============================================================ */
+
+  /* Override the codio-milton page background — we want the
+     out-of-pane background to be Codio's neutral grey so the
+     parchment surface stands out, like in the screenshot. */
+  body.codio-preview-wrap { background: #f4f5f7 !important; }
+
+  .codio-app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #2a2d35;
+    background: #f4f5f7;
+  }
+
+  /* Top bar */
+  .codio-topbar {
+    height: 44px;
+    background: #fff;
+    border-bottom: 1px solid #e4e7ec;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 18px;
+    font-size: 13px;
+    color: #555a66;
+    flex-shrink: 0;
+  }
+  .codio-topbar-logo {
+    width: 22px; height: 22px; border-radius: 4px;
+    background: #003E7E; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 11px; letter-spacing: 0.05em;
+    font-family: 'Crimson Pro', Georgia, serif;
+  }
+  .codio-topbar-menus { display: flex; gap: 18px; }
+  .codio-topbar-menus span { cursor: default; }
+  .codio-topbar-spacer { flex: 1; }
+  .codio-topbar-pill {
+    background: #e8f0fe; color: #003E7E;
+    border: 1px solid #d2e1f2;
+    padding: 3px 10px; border-radius: 4px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .codio-topbar-user {
+    color: #555a66; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  /* Main layout: filetree | guide | code */
+  .codio-main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 220px minmax(540px, 1fr) minmax(360px, 1fr);
+    min-height: 0;
+  }
+
+  /* Filetree */
+  .codio-filetree {
+    background: #f6f7f9;
+    border-right: 1px solid #e4e7ec;
+    padding: 14px 12px;
+    font-size: 12.5px;
+    color: #3e424c;
+  }
+  .codio-filetree-h {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    color: #8c93a1;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .codio-filetree-title {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #003E7E;
+    margin: 0 0 14px;
+    line-height: 1.2;
+  }
+  .codio-filetree-actions {
+    display: flex; gap: 4px; margin-bottom: 12px;
+    padding-bottom: 12px; border-bottom: 1px solid #e4e7ec;
+  }
+  .codio-filetree-actions span {
+    width: 22px; height: 22px; border-radius: 4px;
+    background: #fff; border: 1px solid #e4e7ec;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #555a66; font-size: 11px;
+  }
+  .codio-filetree-row {
+    display: flex; align-items: center; gap: 6px;
+    padding: 4px 6px; border-radius: 3px;
+    line-height: 1.4;
+  }
+  .codio-filetree-row.is-folder { font-weight: 500; }
+  .codio-filetree-row.is-active { background: #e8effa; color: #003E7E; }
+  .codio-filetree-row::before {
+    content: ""; width: 12px; height: 12px;
+    background: currentColor; opacity: 0.55;
+    -webkit-mask-size: contain; mask-size: contain;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  }
+  .codio-filetree-row.is-folder::before {
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M3 6a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V6z'/></svg>");
+            mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M3 6a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V6z'/></svg>");
+  }
+  .codio-filetree-row.is-file::before {
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M6 2h7l5 5v13a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z'/></svg>");
+            mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M6 2h7l5 5v13a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z'/></svg>");
+  }
+  .codio-filetree-row.is-lock::before {
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M6 10V8a6 6 0 1112 0v2h1a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2h1zm2 0h8V8a4 4 0 10-8 0v2z'/></svg>");
+            mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='black' d='M6 10V8a6 6 0 1112 0v2h1a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2h1zm2 0h8V8a4 4 0 10-8 0v2z'/></svg>");
+  }
+
+  /* Guide pane (the one we style) */
+  .codio-guide-pane {
+    background: #fbf8f2;
+    border-right: 1px solid #e4e7ec;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .codio-guide-tabs {
+    height: 36px;
+    background: #fff;
+    border-bottom: 1px solid #e4e7ec;
+    display: flex;
+    align-items: stretch;
+    flex-shrink: 0;
+  }
+  .codio-guide-tab {
+    padding: 0 16px;
+    display: flex; align-items: center;
+    font-size: 12px; color: #2a2d35;
+    border-right: 1px solid #e4e7ec;
+    background: #f6f7f9;
+  }
+  .codio-guide-tab.is-active { background: #fff; font-weight: 600; }
+  .codio-guide-toolbar {
+    padding: 10px 16px 6px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fbf8f2;
+    flex-shrink: 0;
+  }
+  .codio-toolbar-btn {
+    background: #fff; border: 1px solid #e4e7ec;
+    border-radius: 6px; padding: 4px 12px;
+    font-size: 12px; color: #3e424c;
+    font-family: inherit;
+  }
+  .codio-toolbar-spacer { flex: 1; }
+  .codio-toolbar-icon {
+    width: 26px; height: 26px;
+    background: #fff; border: 1px solid #e4e7ec;
+    border-radius: 6px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #555a66; font-size: 12px;
+  }
+  .codio-guide-scroll {
+    flex: 1;
+    overflow-y: auto;
+    background: #fbf8f2;
+  }
+
+  /* Right pane — fake code editor (decorative) */
+  .codio-code-pane {
+    background: #2a2d35;
+    color: #e8effa;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .codio-code-tabs {
+    height: 36px;
+    background: #1f2229;
+    border-bottom: 1px solid #0c0d10;
+    display: flex; align-items: stretch;
+    flex-shrink: 0;
+  }
+  .codio-code-tab {
+    padding: 0 14px;
+    display: flex; align-items: center;
+    font-size: 12px; color: #b1b7c2;
+    border-right: 1px solid #0c0d10;
+  }
+  .codio-code-tab.is-active { background: #2a2d35; color: #fff; }
+  .codio-code-tab .x { margin-left: 10px; opacity: 0.5; }
+  .codio-code-body {
+    flex: 1;
+    padding: 16px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow: auto;
+  }
+  .codio-code-line { display: flex; gap: 14px; }
+  .codio-code-num {
+    color: #6e7482; min-width: 18px; text-align: right;
+    user-select: none;
+  }
+  .ck { color: #ED8B00; }  /* keyword */
+  .cs { color: #a8c6ea; }  /* string */
+  .cc { color: #6ba1dd; font-style: italic; } /* comment */
+  .cn { color: #fff; }     /* number */
+  .cf { color: #ffcd85; }  /* fn */
+
+  /* Notice we override the .codio-preview-wrap background to grey,
+     but the .rendered-markdown inside the guide pane uses parchment.
+     The codio-milton.css rules win because they're more specific. */
+
+  /* Page banner explaining what this is */
+  .preview-note {
+    position: fixed;
+    top: 12px; right: 12px;
+    z-index: 50;
+    background: rgba(0, 42, 86, 0.95);
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 11.5px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 42, 86, 0.25);
+    line-height: 1.4;
+    max-width: 280px;
+  }
+  .preview-note strong { display: block; font-weight: 700; color: #ffb552; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+</style>
+</head>
+<body class="codio-preview-wrap">
+
+<div class="preview-note">
+  <strong>Theme preview</strong>
+  The pane in the middle is the styled <code style="background:rgba(255,255,255,0.15);padding:1px 4px;border-radius:3px;color:#ffb552;font-family:monospace;font-size:11px">.rendered-markdown</code> guide content. Everything else is mock Codio chrome.
+</div>
+
+<div class="codio-app">
+
+  <!-- Top bar -->
+  <div class="codio-topbar">
+    <div class="codio-topbar-logo">co</div>
+    <div class="codio-topbar-menus">
+      <span>Codio</span><span>Project</span><span>File</span>
+      <span>Edit</span><span>Find</span><span>View</span>
+      <span>Tools</span><span>Education</span><span>Help</span>
+    </div>
+    <div class="codio-topbar-spacer"></div>
+    <div class="codio-topbar-pill">GRADING</div>
+    <div class="codio-topbar-user">BSITKOFF</div>
+  </div>
+
+  <!-- Main layout -->
+  <div class="codio-main">
+
+    <!-- File tree (decorative) -->
+    <div class="codio-filetree">
+      <div class="codio-filetree-h">BSITKOFF</div>
+      <div class="codio-filetree-title">Keeping Track-5</div>
+      <div class="codio-filetree-actions">
+        <span>↻</span><span>›_</span><span>▸</span><span>⟳</span>
+      </div>
+      <div class="codio-filetree-row is-lock">Keeping Track-5</div>
+      <div class="codio-filetree-row is-folder" style="padding-left:18px">__pycache__</div>
+      <div class="codio-filetree-row is-folder" style="padding-left:18px">images</div>
+      <div class="codio-filetree-row is-file" style="padding-left:18px">.settings</div>
+      <div class="codio-filetree-row is-file is-active" style="padding-left:18px">track.py</div>
+      <div class="codio-filetree-row is-file" style="padding-left:18px">tryit.py</div>
+    </div>
+
+    <!-- Guide pane — the theme target -->
+    <div class="codio-guide-pane">
+      <div class="codio-guide-tabs">
+        <div class="codio-guide-tab is-active">Guide</div>
+        <div class="codio-guide-tab" style="color:#8c93a1">vivaactor-babo…</div>
+      </div>
+      <div class="codio-guide-toolbar">
+        <button class="codio-toolbar-btn">Collapse</button>
+        <div class="codio-toolbar-spacer"></div>
+        <span class="codio-toolbar-icon">‹</span>
+        <span class="codio-toolbar-icon">›</span>
+        <span class="codio-toolbar-icon">⚙</span>
+        <span class="codio-toolbar-icon">≡</span>
+      </div>
+      <div class="codio-guide-scroll">
+
+        <!-- ============================================================
+             Sample lesson content — this is what gets styled.
+             ============================================================ -->
+        <div class="rendered-markdown">
+
+          <h1>Keeping Track</h1>
+          <p>
+            Games need to remember things — the score, whether you're alive,
+            which level you're on. In this lesson you'll learn how to use
+            <strong>variables</strong> to keep track of state, and how the
+            <code>global</code> keyword lets your functions change those values.
+          </p>
+
+          <h2>Try It Out</h2>
+          <p>
+            Run <code>track.py</code> by typing <code>python3 track.py</code> in
+            the terminal and pressing <kbd>Enter</kbd>.
+          </p>
+          <p>
+            This game has three <strong>states</strong>: a start screen, the
+            game itself, and a game over screen. Play through the whole cycle.
+          </p>
+
+          <h4>Notice</h4>
+          <ul>
+            <li>How do you start the game? How do you restart it?</li>
+            <li>Where does the score display?</li>
+            <li>What triggers the game over?</li>
+          </ul>
+          <p>
+            Now look at the code. Find the <code>state</code> variable and trace
+            how it gets checked in both <code>update()</code> and <code>draw()</code>.
+          </p>
+
+          <!-- INFO callout -->
+          <div class="callout callout-info">
+            <h3>Watch: Game Variables + The <code>global</code> Keyword</h3>
+            <p>
+              A short refresher on what variables actually <em>are</em> and how
+              <code>global</code> lets your functions reach out to change them.
+            </p>
+          </div>
+
+          <h2>Read the Code</h2>
+          <p>
+            Open <code>track.py</code>. The top of the file declares three
+            variables that the whole game cares about:
+          </p>
+
+<pre><code class="language-python"><span class="hljs-keyword">import</span> pgzrun
+<span class="hljs-keyword">import</span> random
+
+WIDTH = <span class="hljs-number">800</span>
+HEIGHT = <span class="hljs-number">600</span>
+
+<span class="hljs-comment"># These variables control the whole game</span>
+state = <span class="hljs-string">"start"</span>
+score = <span class="hljs-number">0</span>
+
+player = <span class="hljs-title">Actor</span>(<span class="hljs-string">'happy'</span>)
+player.pos = (WIDTH // <span class="hljs-number">2</span>, HEIGHT // <span class="hljs-number">2</span>)
+
+alien = <span class="hljs-title">Actor</span>(<span class="hljs-string">'alien'</span>)
+alien.pos = (<span class="hljs-number">100</span>, <span class="hljs-number">100</span>)
+
+<span class="hljs-keyword">def</span> <span class="hljs-title">update</span>():
+    <span class="hljs-keyword">global</span> state, score
+    <span class="hljs-keyword">if</span> state == <span class="hljs-string">"playing"</span>:
+        score += <span class="hljs-number">1</span></code></pre>
+
+          <!-- DEFINITION callout -->
+          <div class="callout callout-definition">
+            <h3>Definition: state</h3>
+            <p>
+              A <em>state</em> is a label that tells the rest of the program
+              what mode the game is in. Our game has three states:
+              <code>"start"</code>, <code>"playing"</code>, and
+              <code>"over"</code>.
+            </p>
+          </div>
+
+          <h2>Change It</h2>
+          <p>
+            Now that you've explored the game, it's time to make changes!
+            Try some or all of these challenges (you may not have time for all
+            of them, and that's ok) — there are no wrong answers, so experiment
+            and have fun.
+          </p>
+
+          <h3>Challenge 1 — A Faster Game</h3>
+          <ol>
+            <li>Open <code>track.py</code> and find the <code>alien</code> actor.</li>
+            <li>Right below it, add a new variable: <code>alien_speed = 2</code>.</li>
+            <li>
+              Inside <code>update()</code>, increase the alien's x position by
+              <code>alien_speed</code> every frame.
+            </li>
+            <li>Run the game. Then try <code>alien_speed = 6</code>. What changes?</li>
+          </ol>
+
+          <!-- CHALLENGE callout -->
+          <div class="callout callout-challenge">
+            <h3>Challenge 2 — Lives</h3>
+            <p>
+              Add a <code>lives</code> variable that starts at <code>3</code>.
+              When the alien touches the player, subtract 1. When lives hits 0,
+              switch <code>state</code> to <code>"over"</code>.
+            </p>
+          </div>
+
+          <!-- WARNING -->
+          <div class="callout callout-warning">
+            <h3>Don't forget to <code>global</code></h3>
+            <p>
+              If a function is going to <em>change</em> a variable that lives
+              outside it, the first line of that function must be
+              <code>global variable_name</code>. Without it, Python creates a
+              brand-new local variable and silently throws away your change.
+            </p>
+          </div>
+
+          <h3>What the score looks like</h3>
+          <table>
+            <thead>
+              <tr><th>State</th><th>Score behavior</th><th>What the player sees</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>"start"</code></td>
+                <td>Score is 0</td>
+                <td>"Press space to play"</td>
+              </tr>
+              <tr>
+                <td><code>"playing"</code></td>
+                <td>Score goes up by 1 each frame</td>
+                <td>Score in the top-left corner</td>
+              </tr>
+              <tr>
+                <td><code>"over"</code></td>
+                <td>Score is frozen</td>
+                <td>"Game over — press R to restart"</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- IMPORTANT -->
+          <div class="callout callout-important">
+            <h3>Save before you run</h3>
+            <p>
+              Codio saves your work automatically, but it's worth pressing
+              <kbd>Cmd</kbd>+<kbd>S</kbd> before you run the game so you can
+              see exactly which version is on disk.
+            </p>
+          </div>
+
+          <!-- DEBUGGING -->
+          <div class="callout callout-debugging">
+            <h3>Debugging — when the score won't change</h3>
+            <ul>
+              <li>Is <code>global score</code> the first line of your function?</li>
+              <li>Are you spelling the variable the same way everywhere?</li>
+              <li>Try a <code>print(score)</code> right above the line that should change it.</li>
+            </ul>
+          </div>
+
+          <h2>Going Further</h2>
+
+          <blockquote>
+            <p>
+              "The whole purpose of a program is to manage state." — every CS
+              teacher, eventually.
+            </p>
+          </blockquote>
+
+          <p>
+            Want to push further? Pick one of these and write your own version:
+          </p>
+
+          <details>
+            <summary>Show a hint for adding a high score</summary>
+            <p>
+              You'll need a second variable, <code>high_score</code>, that
+              <em>doesn't</em> reset when the game restarts. Set it once at the
+              top of the file, then in <code>draw()</code> compare it to the
+              current score and update it if the current score is higher.
+            </p>
+
+<pre><code class="language-python"><span class="hljs-keyword">global</span> high_score
+<span class="hljs-keyword">if</span> score &gt; high_score:
+    high_score = score</code></pre>
+
+            <p>
+              Then draw it on screen next to the current score.
+            </p>
+          </details>
+
+          <details>
+            <summary>Show the full solution for Challenge 1</summary>
+            <p>One way to do it — yours may look different and still be right.</p>
+
+<pre><code class="language-python">alien = <span class="hljs-title">Actor</span>(<span class="hljs-string">'alien'</span>)
+alien.pos = (<span class="hljs-number">100</span>, <span class="hljs-number">100</span>)
+alien_speed = <span class="hljs-number">2</span>
+
+<span class="hljs-keyword">def</span> <span class="hljs-title">update</span>():
+    <span class="hljs-keyword">global</span> state, score
+    <span class="hljs-keyword">if</span> state == <span class="hljs-string">"playing"</span>:
+        alien.x += alien_speed
+        score += <span class="hljs-number">1</span></code></pre>
+          </details>
+
+          <!-- GUIDANCE — teacher only -->
+          <div class="callout callout-guidance">
+            <h3>Teaching note</h3>
+            <p>
+              Most 6th graders will conflate "state" with "score" on the first
+              read. Plan to pause after Challenge 1 and have one student narrate
+              what <code>state</code> is doing while another narrates what
+              <code>score</code> is doing — the contrast helps both ideas stick.
+            </p>
+          </div>
+
+          <h3>Before you leave</h3>
+          <p>
+            Make sure to save your project and
+            <a href="#">share your changes with your table group</a>. See you
+            Thursday.
+          </p>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Right code pane (decorative) -->
+    <div class="codio-code-pane">
+      <div class="codio-code-tabs">
+        <div class="codio-code-tab" style="color:#8c93a1">Terminal</div>
+        <div class="codio-code-tab is-active">track.py <span class="x">×</span></div>
+      </div>
+      <div class="codio-code-body">
+        <div class="codio-code-line"><span class="codio-code-num">1</span><span><span class="ck">import</span> pgzrun</span></div>
+        <div class="codio-code-line"><span class="codio-code-num">2</span><span><span class="ck">import</span> random</span></div>
+        <div class="codio-code-line"><span class="codio-code-num">3</span><span>&nbsp;</span></div>
+        <div class="codio-code-line"><span class="codio-code-num">4</span><span>WIDTH = <span class="cn">800</span></span></div>
+        <div class="codio-code-line"><span class="codio-code-num">5</span><span>HEIGHT = <span class="cn">600</span></span></div>
+        <div class="codio-code-line"><span class="codio-code-num">6</span><span>&nbsp;</span></div>
+        <div class="codio-code-line"><span class="codio-code-num">7</span><span><span class="cc"># These variables control the</span></span></div>
+        <div class="codio-code-line"><span class="codio-code-num">8</span><span><span class="cc"># whole game</span></span></div>
+        <div class="codio-code-line"><span class="codio-code-num">9</span><span>state = <span class="cs">"start"</span></span></div>
+        <div class="codio-code-line"><span class="codio-code-num">10</span><span>score = <span class="cn">0</span></span></div>
+        <div class="codio-code-line"><span class="codio-code-num">11</span><span>&nbsp;</span></div>
+        <div class="codio-code-line"><span class="codio-code-num">12</span><span>player = <span class="cf">Actor</span>(<span class="cs">'happy'</span>)</span></div>
+        <div class="codio-code-line"><span class="codio-code-num">13</span><span>player.pos = (WIDTH // <span class="cn">2</span>,</span></div>
+        <div class="codio-code-line"><span class="codio-code-num">14</span><span>&nbsp;&nbsp;&nbsp;&nbsp;HEIGHT // <span class="cn">2</span>)</span></div>
+        <div class="codio-code-line"><span class="codio-code-num">15</span><span>&nbsp;</span></div>
+        <div class="codio-code-line"><span class="codio-code-num">16</span><span>alien = <span class="cf">Actor</span>(<span class="cs">'alien'</span>)</span></div>
+        <div class="codio-code-line"><span class="codio-code-num">17</span><span>alien.pos = (<span class="cn">100</span>, <span class="cn">100</span>)</span></div>
+        <div class="codio-code-line"><span class="codio-code-num">18</span><span>&nbsp;</span></div>
+        <div class="codio-code-line"><span class="codio-code-num">19</span><span><span class="ck">def</span> <span class="cf">update</span>():</span></div>
+        <div class="codio-code-line"><span class="codio-code-num">20</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="ck">global</span> state, score</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

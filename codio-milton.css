@@ -1,0 +1,950 @@
+/* ============================================================================
+   Milton Academy — Middle School Computer Science
+   Codio Guide Theme (Override Guides CSS URL)
+   ----------------------------------------------------------------------------
+   • Drop this URL into Course Details → Override Guides CSS URL.
+   • Full replacement: do NOT use the "Extra Guides CSS URL" field with this.
+   • Self-contained — fonts via Google Fonts, sketch accents inlined as SVG.
+   ----------------------------------------------------------------------------
+   Maintainers: Ben Sitkoff (Milton MS CS)
+   Last updated: 2026-05
+   ============================================================================ */
+
+/* -------------------------------------------------------------------------- */
+/*  Webfonts                                                                  */
+/* -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300..900;1,300..900&family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* -------------------------------------------------------------------------- */
+/*  Tokens                                                                    */
+/* -------------------------------------------------------------------------- */
+:root {
+  /* Brand */
+  --ma-blue-288:   #003E7E;
+  --ma-orange-144: #ED8B00;
+
+  /* Blue scale */
+  --blue-950: #001a36;
+  --blue-900: #002a56;
+  --blue-800: #003E7E;
+  --blue-700: #0a4f98;
+  --blue-600: #1763b3;
+  --blue-500: #2f7ccc;
+  --blue-400: #6ba1dd;
+  --blue-300: #a8c6ea;
+  --blue-200: #d2e1f2;
+  --blue-100: #e8effa;
+  --blue-50:  #f3f7fd;
+
+  /* Orange scale */
+  --orange-900: #7a4600;
+  --orange-800: #a05c00;
+  --orange-700: #c87400;
+  --orange-600: #ED8B00;
+  --orange-500: #ff9f1f;
+  --orange-400: #ffb552;
+  --orange-300: #ffcd85;
+  --orange-200: #ffe2b5;
+  --orange-100: #fff1dc;
+  --orange-50:  #fff8ee;
+
+  /* Ink (warm neutrals) */
+  --ink-1000: #0c0d10;
+  --ink-900:  #17191e;
+  --ink-800:  #2a2d35;
+  --ink-700:  #3e424c;
+  --ink-600:  #555a66;
+  --ink-500:  #6e7482;
+  --ink-400:  #8c93a1;
+  --ink-300:  #b1b7c2;
+  --ink-200:  #d4d8df;
+  --ink-150:  #e4e7ec;
+  --ink-100:  #eef0f4;
+  --ink-50:   #f6f7f9;
+
+  /* Parchment */
+  --paper:      #fbf8f2;
+  --paper-warm: #f4eedf;
+  --paper-edge: #e9e1cb;
+
+  /* Semantic */
+  --success: #2e7d4f;  --success-bg: #e6f2ec;
+  --warning: #c87400;  --warning-bg: #fff1dc;
+  --danger:  #b23a2b;  --danger-bg:  #fbe8e5;
+  --info:    #1763b3;  --info-bg:    #e8effa;
+
+  /* Light code theme (parchment + dark text) */
+  --code-bg:        #f4eedf;
+  --code-border:    #e9e1cb;
+  --code-fg:        #2a2d35;
+  --code-keyword:   #003E7E;   /* blue — control flow, def, class */
+  --code-string:    #7a4600;   /* warm brown */
+  --code-comment:   #8c93a1;   /* muted gray italic */
+  --code-fn:        #c87400;   /* orange accent */
+  --code-number:    #b23a2b;   /* warm red */
+  --code-builtin:   #0a4f98;   /* dark blue */
+  --code-punct:     #555a66;
+  --code-line:      rgba(0, 62, 126, 0.05);
+
+  /* Type */
+  --font-serif:   'Crimson Pro', Georgia, 'Times New Roman', serif;
+  --font-display: 'Oswald', 'Franklin Gothic', Impact, sans-serif;
+  --font-ui:      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur-med:  220ms;
+
+  /* Layout */
+  --content-max: 760px;
+  --content-pad: 40px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Surface — parchment, warm, paper-feel                                     */
+/* -------------------------------------------------------------------------- */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink-900);
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* The Codio guide content wrapper. Some Codio versions render to body
+   directly; others use these wrappers. We target broadly so the theme
+   applies regardless. */
+.rendered-markdown,
+.preview-content,
+.markdown-body,
+.guide-content {
+  background: var(--paper);
+  color: var(--ink-900);
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.65;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 48px var(--content-pad) 96px;
+  box-sizing: border-box;
+}
+
+/* Focus state — per Codio docs, the markdown panel is focusable. */
+.rendered-markdown:focus,
+.preview-content:focus {
+  outline: 2px solid var(--orange-400);
+  outline-offset: 4px;
+  background: var(--paper);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Typography — headings (Crimson Pro, Milton blue)                          */
+/* -------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  color: var(--blue-800);
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  margin: 0 0 0.4em;
+  line-height: 1.15;
+}
+
+/* H1 — big, scholarly. Wavy orange underline beneath. */
+h1 {
+  font-size: 44px;
+  font-weight: 600;
+  margin: 0.2em 0 0.6em;
+  padding-bottom: 14px;
+  position: relative;
+}
+h1::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 180px;
+  height: 10px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'><path d='M3 8 Q 20 -2, 40 8 T 80 8 T 120 8 T 160 8 T 197 8' fill='none' stroke='%23ED8B00' stroke-width='2.4' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+/* H2 — section headings, with a softer hand-drawn underline. */
+h2 {
+  font-size: 32px;
+  margin-top: 1.6em;
+  padding-bottom: 10px;
+  position: relative;
+}
+h2::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 120px;
+  height: 8px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'><path d='M4 6 C 50 2, 100 9, 150 5 S 190 7, 196 5' fill='none' stroke='%23ED8B00' stroke-width='2.6' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+h3 {
+  font-size: 24px;
+  margin-top: 1.4em;
+  color: var(--blue-700);
+}
+
+h4 {
+  font-size: 20px;
+  margin-top: 1.2em;
+  color: var(--blue-700);
+}
+
+h5 {
+  font-size: 16px;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--orange-700);
+  margin-top: 1.2em;
+}
+
+h6 {
+  font-size: 14px;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-600);
+}
+
+/* First h1 in a guide gets a touch more presence (no top margin). */
+.rendered-markdown > h1:first-child,
+.preview-content > h1:first-child {
+  margin-top: 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Body type rhythm                                                          */
+/* -------------------------------------------------------------------------- */
+p {
+  margin: 0 0 1em;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--ink-900);
+  text-wrap: pretty;
+}
+
+strong, b {
+  font-weight: 700;
+  color: var(--blue-800);
+}
+
+em, i {
+  font-style: italic;
+  color: var(--ink-800);
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: var(--paper-edge);
+  margin: 2.4em 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Links — quietly underlined, orange on hover                               */
+/* -------------------------------------------------------------------------- */
+a {
+  color: var(--blue-700);
+  text-decoration: none;
+  border-bottom: 1px solid var(--blue-200);
+  padding-bottom: 1px;
+  transition: color var(--dur-fast) var(--ease-standard),
+              border-color var(--dur-fast) var(--ease-standard);
+}
+a:hover {
+  color: var(--orange-700);
+  border-bottom-color: var(--orange-400);
+}
+a:focus-visible {
+  outline: 2px solid var(--orange-400);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Lists — bullets in orange, numbered with hand-circled counters            */
+/* -------------------------------------------------------------------------- */
+ul, ol {
+  margin: 0 0 1.2em;
+  padding-left: 0;
+  list-style: none;
+}
+
+ul > li,
+ol > li {
+  position: relative;
+  padding: 4px 0 4px 36px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* Bullet — small orange diamond */
+ul > li::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 0.78em;
+  width: 7px;
+  height: 7px;
+  background: var(--orange-600);
+  transform: rotate(45deg);
+  border-radius: 1px;
+}
+
+/* Indented (nested) lists use a hollow blue diamond */
+ul ul > li::before,
+ul ol > li::before,
+ol ul > li::before {
+  background: transparent;
+  border: 1.5px solid var(--blue-600);
+}
+
+/* Numbered list — circled lesson number (hand-drawn feel) */
+ol {
+  counter-reset: ol-counter;
+}
+ol > li {
+  counter-increment: ol-counter;
+  padding-left: 44px;
+  min-height: 32px;
+  padding-top: 5px;
+}
+ol > li::before {
+  content: counter(ol-counter);
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--blue-800);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'><path d='M30 4 C 48 6, 56 22, 54 32 C 52 50, 38 56, 28 56 C 10 56, 4 42, 6 30 C 8 14, 22 4, 34 4' fill='%23fbf8f2' stroke='%23003E7E' stroke-width='2.2' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+/* Nested ol — smaller, no circle, just a colon-prefixed number */
+ol ol {
+  margin-top: 0.4em;
+}
+ol ol > li::before {
+  background-image: none;
+  width: auto;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--orange-700);
+  content: counter(ol-counter, lower-alpha) ".";
+  left: 4px;
+  top: 6px;
+  height: auto;
+}
+
+li > p { margin: 0 0 0.4em; }
+li > ul, li > ol { margin: 0.4em 0 0.4em; }
+
+/* -------------------------------------------------------------------------- */
+/*  Blockquote — formal pull-quote in serif italic                            */
+/* -------------------------------------------------------------------------- */
+blockquote {
+  margin: 1.5em 0;
+  padding: 14px 8px 14px 24px;
+  border-left: 3px solid var(--orange-600);
+  background: transparent;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--ink-800);
+  font-size: 19px;
+  line-height: 1.55;
+}
+blockquote p { margin: 0 0 0.5em; }
+blockquote p:last-child { margin: 0; }
+blockquote cite {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-ui);
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--orange-700);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Inline code                                                               */
+/* -------------------------------------------------------------------------- */
+code, tt, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  font-weight: 500;
+}
+
+:not(pre) > code,
+p code,
+li code,
+td code,
+th code,
+h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
+  background: #fff;
+  color: var(--blue-800);
+  border: 1px solid var(--blue-100);
+  padding: 1px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Keyboard keys — kbd as little physical chip */
+kbd {
+  display: inline-block;
+  background: #fff;
+  color: var(--ink-800);
+  border: 1px solid var(--ink-200);
+  border-bottom-width: 2px;
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-size: 0.82em;
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Code blocks — light parchment-warm, syntax highlighted                    */
+/* -------------------------------------------------------------------------- */
+pre {
+  font-family: var(--font-mono);
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 1.4em 0;
+  overflow-x: auto;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--code-fg);
+  position: relative;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  border-radius: 0;
+  color: var(--code-fg);
+  font-size: inherit;
+  font-weight: 400;
+  white-space: pre;
+  display: block;
+}
+
+/* A subtle blue tab at the top-left to anchor the block — like a tab on a
+   notebook page. */
+pre::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 18px;
+  width: 36px;
+  height: 4px;
+  background: var(--blue-800);
+  border-radius: 0 0 3px 3px;
+}
+
+/* Syntax highlighting — works with both highlight.js (.hljs-*) and
+   Pygments / kramdown (.k, .s, .c, etc.). Codio uses one or both. */
+
+/* highlight.js */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-built_in,
+.hljs-tag .hljs-name { color: var(--code-keyword); font-weight: 600; }
+.hljs-string,
+.hljs-literal,
+.hljs-attr { color: var(--code-string); }
+.hljs-comment,
+.hljs-quote { color: var(--code-comment); font-style: italic; }
+.hljs-number,
+.hljs-symbol,
+.hljs-bullet { color: var(--code-number); }
+.hljs-function,
+.hljs-title,
+.hljs-section,
+.hljs-title.function_ { color: var(--code-fn); font-weight: 600; }
+.hljs-class,
+.hljs-type,
+.hljs-meta { color: var(--code-builtin); font-weight: 600; }
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attribute { color: var(--ink-800); }
+.hljs-punctuation,
+.hljs-operator { color: var(--code-punct); }
+
+/* Pygments / kramdown class names */
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .kr,
+.highlight .kt, .highlight .kc { color: var(--code-keyword); font-weight: 600; }
+.highlight .s, .highlight .s1, .highlight .s2, .highlight .sb,
+.highlight .sc, .highlight .sd, .highlight .se, .highlight .sh,
+.highlight .si, .highlight .sx, .highlight .sr, .highlight .ss { color: var(--code-string); }
+.highlight .c, .highlight .c1, .highlight .cm, .highlight .cp,
+.highlight .cs { color: var(--code-comment); font-style: italic; }
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi,
+.highlight .mo, .highlight .il { color: var(--code-number); }
+.highlight .nf, .highlight .nc, .highlight .nb { color: var(--code-fn); font-weight: 600; }
+.highlight .nn, .highlight .ne { color: var(--code-builtin); font-weight: 600; }
+.highlight .o, .highlight .ow, .highlight .p { color: var(--code-punct); }
+.highlight .n, .highlight .na, .highlight .nv { color: var(--ink-800); }
+
+/* Codio's copy-to-clipboard button (if it renders inside the pre or as a
+   sibling). We style multiple likely selectors to be safe. */
+.clipboard-button,
+.code-copy,
+button[class*="copy"],
+.copy-to-clipboard {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--blue-800);
+  border: 1px solid var(--paper-edge);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity var(--dur-fast), background var(--dur-fast),
+              color var(--dur-fast);
+}
+.clipboard-button:hover,
+.code-copy:hover,
+button[class*="copy"]:hover,
+.copy-to-clipboard:hover {
+  opacity: 1;
+  background: var(--orange-600);
+  color: #fff;
+  border-color: var(--orange-600);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Tables — formal academic ruled tables                                     */
+/* -------------------------------------------------------------------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-family: var(--font-ui);
+  font-size: 15px;
+  background: #fff;
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  overflow: hidden;
+}
+thead {
+  background: var(--blue-800);
+  color: #fff;
+}
+th {
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: none;
+}
+td {
+  padding: 12px 16px;
+  border-top: 1px solid var(--ink-100);
+  color: var(--ink-800);
+  vertical-align: top;
+}
+tbody tr:nth-child(even) { background: var(--paper); }
+tbody tr:hover { background: var(--blue-50); }
+
+/* Inline code in table cells should be small */
+td code, th code { font-size: 0.86em; }
+
+/* -------------------------------------------------------------------------- */
+/*  Callout blocks                                                            */
+/*  Codio renders |||type ... ||| as <div class="callout callout-{type}">.    */
+/*  We target both that pattern AND the older codio-callout-{type} pattern.   */
+/*  Available types per docs: important, info, warning, topic, definition,    */
+/*  challenge, guidance, meetup, hackathon, create, calendar, growthhack,     */
+/*  xdiscipline, debugging                                                    */
+/* -------------------------------------------------------------------------- */
+.callout,
+[class*="callout-"],
+[class*="codio-callout"] {
+  position: relative;
+  margin: 1.6em 0;
+  padding: 18px 22px 18px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--paper-edge);
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 42, 86, 0.04),
+              0 1px 3px rgba(0, 42, 86, 0.06);
+  font-family: var(--font-serif);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-900);
+}
+
+/* Left accent bar — color set by type */
+.callout::before,
+[class*="callout-"]::before,
+[class*="codio-callout"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 4px;
+  border-radius: 2px;
+  background: var(--blue-700);
+}
+
+/* Eyebrow label on every callout */
+.callout::after,
+[class*="callout-"]::after,
+[class*="codio-callout"]::after {
+  content: "Note";
+  position: absolute;
+  top: -10px;
+  left: 18px;
+  background: var(--paper);
+  padding: 1px 10px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue-700);
+  border-radius: 2px;
+}
+
+/* Callout inner headings */
+.callout h1, .callout h2, .callout h3, .callout h4,
+[class*="callout-"] h1, [class*="callout-"] h2,
+[class*="callout-"] h3, [class*="callout-"] h4,
+[class*="codio-callout"] h1, [class*="codio-callout"] h2,
+[class*="codio-callout"] h3, [class*="codio-callout"] h4 {
+  font-family: var(--font-serif);
+  color: var(--blue-800);
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 0.4em;
+  padding-bottom: 0;
+  letter-spacing: -0.01em;
+}
+.callout h1::after, .callout h2::after,
+[class*="callout-"] h1::after, [class*="callout-"] h2::after,
+[class*="codio-callout"] h1::after, [class*="codio-callout"] h2::after {
+  display: none;
+}
+
+.callout p:last-child,
+[class*="callout-"] p:last-child,
+[class*="codio-callout"] p:last-child { margin-bottom: 0; }
+
+/* --- Per-type colors. Each pairs accent bar + label color + background. -- */
+
+/* INFO — blue, calm, default */
+.callout-info::before,
+.codio-callout-info::before { background: var(--blue-700); }
+.callout-info,
+.codio-callout-info { background: linear-gradient(to right, var(--blue-50) 0, #fff 60%); }
+.callout-info::after,
+.codio-callout-info::after { content: "Info"; color: var(--blue-700); }
+
+/* IMPORTANT — orange, urgent */
+.callout-important::before,
+.codio-callout-important::before { background: var(--orange-600); }
+.callout-important,
+.codio-callout-important { background: linear-gradient(to right, var(--orange-50) 0, #fff 60%); }
+.callout-important::after,
+.codio-callout-important::after { content: "Important"; color: var(--orange-700); }
+
+/* WARNING — orange/warning, with sharper tint */
+.callout-warning::before,
+.codio-callout-warning::before { background: var(--warning); }
+.callout-warning,
+.codio-callout-warning { background: linear-gradient(to right, var(--warning-bg) 0, #fff 60%); }
+.callout-warning::after,
+.codio-callout-warning::after { content: "Heads up"; color: var(--warning); }
+
+/* TOPIC — blue, like a chapter intro */
+.callout-topic::before,
+.codio-callout-topic::before { background: var(--blue-800); width: 6px; }
+.callout-topic,
+.codio-callout-topic {
+  background: var(--paper-warm);
+  border-color: var(--paper-edge);
+}
+.callout-topic::after,
+.codio-callout-topic::after { content: "Topic"; color: var(--blue-800); background: var(--paper-warm); }
+
+/* DEFINITION — formal, parchment, like a dictionary entry */
+.callout-definition::before,
+.codio-callout-definition::before { background: var(--ink-800); }
+.callout-definition,
+.codio-callout-definition {
+  background: var(--paper-warm);
+  border-color: var(--paper-edge);
+  font-style: italic;
+}
+.callout-definition h1, .callout-definition h2,
+.callout-definition h3, .callout-definition h4,
+.codio-callout-definition h1, .codio-callout-definition h2,
+.codio-callout-definition h3, .codio-callout-definition h4 {
+  font-style: normal;
+  color: var(--ink-900);
+}
+.callout-definition::after,
+.codio-callout-definition::after { content: "Definition"; color: var(--ink-800); background: var(--paper-warm); }
+
+/* CHALLENGE — Milton orange, like a flag in the margin */
+.callout-challenge::before,
+.codio-callout-challenge::before { background: var(--orange-600); width: 6px; }
+.callout-challenge,
+.codio-callout-challenge {
+  background: linear-gradient(to right, var(--orange-50) 0, #fff 70%);
+  border-color: var(--orange-200);
+}
+.callout-challenge::after,
+.codio-callout-challenge::after { content: "Challenge"; color: var(--orange-700); }
+
+/* GUIDANCE — teacher-only, soft blue. Per docs: only visible to teachers. */
+.callout-guidance::before,
+.codio-callout-guidance::before {
+  background: var(--blue-600);
+  background-image: repeating-linear-gradient(
+    -45deg, var(--blue-600) 0 4px, var(--blue-400) 4px 8px
+  );
+}
+.callout-guidance,
+.codio-callout-guidance {
+  background: var(--blue-50);
+  border: 1px dashed var(--blue-300);
+  border-left: 0;
+}
+.callout-guidance::after,
+.codio-callout-guidance::after { content: "Teacher only"; color: var(--blue-700); background: var(--blue-50); }
+
+/* DEBUGGING — orange-warm, a "bug" report tone */
+.callout-debugging::before,
+.codio-callout-debugging::before { background: var(--orange-700); }
+.callout-debugging,
+.codio-callout-debugging {
+  background: linear-gradient(to right, var(--orange-50) 0, #fff 70%);
+}
+.callout-debugging::after,
+.codio-callout-debugging::after { content: "Debugging"; color: var(--orange-700); }
+
+/* CREATE — bright orange, "make it" student moment */
+.callout-create::before,
+.codio-callout-create::before { background: var(--orange-600); }
+.callout-create,
+.codio-callout-create {
+  background: linear-gradient(to right, var(--orange-50) 0, #fff 60%);
+}
+.callout-create::after,
+.codio-callout-create::after { content: "Create"; color: var(--orange-700); }
+
+/* MEETUP — warm parchment */
+.callout-meetup::before, .codio-callout-meetup::before { background: var(--orange-700); }
+.callout-meetup, .codio-callout-meetup { background: var(--paper-warm); border-color: var(--paper-edge); }
+.callout-meetup::after, .codio-callout-meetup::after { content: "Meetup"; color: var(--orange-800); background: var(--paper-warm); }
+
+/* HACKATHON — energetic blue */
+.callout-hackathon::before, .codio-callout-hackathon::before { background: var(--blue-600); }
+.callout-hackathon, .codio-callout-hackathon { background: linear-gradient(to right, var(--blue-50) 0, #fff 60%); }
+.callout-hackathon::after, .codio-callout-hackathon::after { content: "Hackathon"; color: var(--blue-700); }
+
+/* CALENDAR — neutral ink */
+.callout-calendar::before, .codio-callout-calendar::before { background: var(--ink-700); }
+.callout-calendar, .codio-callout-calendar { background: var(--ink-50); }
+.callout-calendar::after, .codio-callout-calendar::after { content: "Schedule"; color: var(--ink-700); background: var(--ink-50); }
+
+/* GROWTHHACK — orange */
+.callout-growthhack::before, .codio-callout-growthhack::before { background: var(--orange-600); }
+.callout-growthhack, .codio-callout-growthhack { background: linear-gradient(to right, var(--orange-50) 0, #fff 60%); }
+.callout-growthhack::after, .codio-callout-growthhack::after { content: "Growth"; color: var(--orange-700); }
+
+/* XDISCIPLINE — blue, cross-disciplinary */
+.callout-xdiscipline::before, .codio-callout-xdiscipline::before { background: var(--blue-700); }
+.callout-xdiscipline, .codio-callout-xdiscipline { background: linear-gradient(to right, var(--blue-50) 0, #fff 60%); }
+.callout-xdiscipline::after, .codio-callout-xdiscipline::after { content: "Across subjects"; color: var(--blue-700); }
+
+/* -------------------------------------------------------------------------- */
+/*  Details / Summary — collapsible content                                   */
+/* -------------------------------------------------------------------------- */
+details {
+  margin: 1.4em 0;
+  padding: 0;
+  background: #fff;
+  border: 1px solid var(--paper-edge);
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 42, 86, 0.04);
+  overflow: hidden;
+}
+details > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 20px 14px 44px;
+  position: relative;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--blue-800);
+  background: var(--paper);
+  border-bottom: 1px solid transparent;
+  transition: background var(--dur-fast) var(--ease-standard);
+}
+details > summary::-webkit-details-marker { display: none; }
+details > summary::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M9 6l6 6-6 6' fill='none' stroke='%23ED8B00' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  transition: transform var(--dur-fast) var(--ease-standard);
+}
+details[open] > summary { border-bottom-color: var(--paper-edge); }
+details[open] > summary::before { transform: translateY(-50%) rotate(90deg); }
+details > summary:hover { background: var(--paper-warm); }
+details > *:not(summary) { padding-left: 20px; padding-right: 20px; }
+details > *:not(summary):first-of-type { padding-top: 14px; }
+details > *:not(summary):last-child { padding-bottom: 14px; }
+details > pre { margin: 14px 20px; padding-left: 22px; padding-right: 22px; }
+details hr { margin: 0; background: var(--paper-edge); }
+details > summary > p { display: inline; margin: 0; }
+
+/* -------------------------------------------------------------------------- */
+/*  Images                                                                    */
+/* -------------------------------------------------------------------------- */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0, 42, 86, 0.06),
+              0 4px 12px rgba(0, 42, 86, 0.08);
+}
+p > img { display: block; margin: 1.2em auto; }
+figure {
+  margin: 1.4em 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+figcaption {
+  margin-top: 8px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-500);
+  text-align: center;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Math / MathJax blocks — readable serif sizing                             */
+/* -------------------------------------------------------------------------- */
+.MathJax, mjx-container {
+  font-size: 1.05em !important;
+}
+.math, .math-block {
+  display: block;
+  text-align: center;
+  margin: 1.4em 0;
+  padding: 16px;
+  background: var(--paper-warm);
+  border-radius: 6px;
+  border: 1px solid var(--paper-edge);
+  overflow-x: auto;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Selection                                                                 */
+/* -------------------------------------------------------------------------- */
+::selection {
+  background: var(--orange-300);
+  color: var(--ink-900);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Scrollbar (webkit) — quiet, on-brand                                      */
+/* -------------------------------------------------------------------------- */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--paper-edge); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-300); }
+
+/* -------------------------------------------------------------------------- */
+/*  Print                                                                     */
+/* -------------------------------------------------------------------------- */
+@media print {
+  html, body, .rendered-markdown, .preview-content {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11pt;
+    padding: 0;
+    max-width: none;
+  }
+  h1, h2, h3, h4 { color: #000 !important; page-break-after: avoid; }
+  h1::after, h2::after { display: none; }
+  pre, .callout, [class*="callout-"], [class*="codio-callout"], details {
+    page-break-inside: avoid;
+    box-shadow: none;
+  }
+  a { color: #000; border-bottom: 0; }
+  a::after { content: " (" attr(href) ")"; font-size: 10pt; color: #555; }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Narrow viewport — mobile / split-pane Codio                               */
+/* -------------------------------------------------------------------------- */
+@media (max-width: 720px) {
+  .rendered-markdown, .preview-content, .markdown-body, .guide-content {
+    padding: 28px 20px 64px;
+    font-size: 17px;
+  }
+  h1 { font-size: 34px; }
+  h2 { font-size: 26px; }
+  h3 { font-size: 21px; }
+  pre { padding: 14px 16px; font-size: 13.5px; }
+  table { font-size: 14px; }
+  th, td { padding: 10px 12px; }
+}
