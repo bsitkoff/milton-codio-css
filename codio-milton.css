@@ -943,8 +943,8 @@ select {
               box-shadow var(--dur-fast) var(--ease-standard);
 }
 textarea {
-  width: 100%;
-  min-height: 96px;
+  width: 100% !important;
+  min-height: 88px;
   resize: vertical;
   display: block;
 }
@@ -998,6 +998,23 @@ button:focus-visible,
 input[type="submit"]:focus-visible {
   outline: 2px solid var(--orange-400);
   outline-offset: 2px;
+}
+
+/* --- Leave Codio's icon-only / utility buttons alone ---------------------
+   Copy-code, toolbar, and collapse toggles are icon buttons or have no text;
+   without this they pick up the rule above and render as empty bordered
+   pills. Neutralize the box treatment for them (text buttons are unaffected). */
+button[class*="copy"], button[class*="clip"], button[class*="icon"],
+button[class*="toolbar"], button[class*="collapse"], button[class*="menu"],
+button[class*="toggle"], button[aria-label]:empty,
+button:has(> svg), button:has(> img), button:has(> i):not(:has(*:not(i))),
+button:empty {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 /* --- Primary / submit ("Check It!") — filled Milton blue ----------------- */
